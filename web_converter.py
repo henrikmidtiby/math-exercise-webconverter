@@ -1,5 +1,5 @@
 # from app import app
-from .exercise_converter.helper.exerciseconverterfunctions import get_exercises, render_exercises, change_part_of_markup, get_exercise_meta_information_from_string, write_exercises_to_file 
+from exercise_converter.helper.exerciseconverterfunctions import get_exercises, render_exercises, change_part_of_markup, get_exercise_meta_information_from_string, write_exercises_to_file 
 from io import StringIO
 
 from flask import Flask, request, redirect, url_for, render_template
