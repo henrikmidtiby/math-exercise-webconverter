@@ -10,7 +10,6 @@ try:
 except KeyError:
     CLIENT_ID = None
 
-imgur_upload_cache = percache.Cache('images_on_imgur.bin', livesync=True)
 
 
 Image = collections.namedtuple('Image', ['nr', 'content'])
@@ -35,7 +34,6 @@ def get_image_data(path_to_image):
     return result
 
 
-@imgur_upload_cache
 def upload_to_imgur(image_information):
     im = pyimgur.Imgur(CLIENT_ID)
     uploaded_image = im.upload_image(image_information['path'], title=image_information['path'])
