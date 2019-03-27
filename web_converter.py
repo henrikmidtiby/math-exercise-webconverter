@@ -9,7 +9,46 @@ app = Flask(__name__)
 def hello_world():
     return render_template('index.html', 
             converted_exercise="",
-            original_input="")
+            original_input=r"""\documentclass{article}
+\usepackage{tekvideoexercises}
+
+\begin{document}
+\exercisename{Gange parenteser sammen}
+\tableofcontents
+\newpage
+
+\begin{exercise}{Polynomier 1-1}
+
+Reducér $(2+3x)(5-2x)$.
+
+\answerbox{-6x^2 +11x + 10}
+
+\hint
+
+Gang parentesen ud
+\[
+(2+3x)(5-2x) = 2 \cdot 5 + 2 \cdot (-2x) + 3x \cdot 5 + 3x \cdot (-2x)
+\]
+
+\hint
+
+Reducér udtryk
+\[
+= 10 -4x + 15x-6x^2
+\]
+
+
+\hint
+
+Saml leddene 
+\[
+= -6x^2 +11x + 10
+\]
+
+\end{exercise}
+
+
+\end{document}""")
 
 @app.route('/name/<name>')
 def hello_world_named(name):
