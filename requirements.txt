@@ -1,0 +1,7 @@
+coverage
+nose
+pytest
+pytest-cov
+jinja2
+percache
+pyimgur
