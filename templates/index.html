@@ -1,10 +1,17 @@
 <html>
-   <body>
-      <form action = "/submit" method = "post">
-         <p>Enter latex code for the exercise:</p>
-         <p><textarea name = "exercise_input" >{{ original_input | safe }}</textarea></p>
-         <p><input type = "submit" value = "submit" /></p>
-      </form>
-      <p><textarea name = "exercise_output" >{{ converted_exercise | safe }}</textarea></p>
-   </body>
+  <head>
+<style>
+  textarea {width: 100em; height: 20em;}
+</style>
+  </head>
+  <body>
+     <h1>Latex to markdown converter for <a href="http://tekvideo.sdu.dk">tekvideo.sdu.dk</a></h1>
+     <p>Developed by Henrik Skova Midtiby</p>
+     <form action = "/submit" method = "post">
+       <p>Enter latex code for the exercise:</p>
+       <p><textarea name = "exercise_input" >{{ original_input | safe }}</textarea></p>
+       <p><input type = "submit" value = "submit" /></p>
+     </form>
+     <p><textarea name = "exercise_output" >{{ converted_exercise | safe }}</textarea></p>
+  </body>
 </html>
