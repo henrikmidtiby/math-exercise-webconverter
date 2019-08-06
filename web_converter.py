@@ -129,4 +129,6 @@ def submit():
 def convert_exercises():
     file_contents = request.args.get('file_contents', '', type=str)
     json_representation = convert_exercises_from_tex_to_json(file_contents)
-    return jsonify(result=json_representation)
+    response = jsonify(result=json_representation)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    return response
