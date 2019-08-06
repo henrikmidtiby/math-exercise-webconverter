@@ -3,6 +3,7 @@ from exercise_converter.helper.exerciseconverterfunctions import get_exercises, 
 from io import StringIO
 
 from flask import Flask, request, redirect, url_for, render_template, jsonify
+from flask_cors import CORS
 
 
 
@@ -46,6 +47,7 @@ class ReverseProxied(object):
 
 
 app = Flask(__name__)
+CORS(app)
 app.wsgi_app = ReverseProxied(app.wsgi_app)
 
 @app.route('/')
@@ -125,10 +127,8 @@ def submit():
         return render_template('index.html')
         
 
-@app.route('/_convert_exercises', methods=['GET'])
+@app.route('/_convert_exercises', methods=['POST'])
 def convert_exercises():
-    file_contents = request.args.get('file_contents', '', type=str)
-    json_representation = convert_exercises_from_tex_to_json(file_contents)
+    json_representation = convert_exercises_from_tex_to_json(request.form['file_contents'])
     response = jsonify(result=json_representation)
-    response.headers.add('Access-Control-Allow-Origin', '*')
     return response
