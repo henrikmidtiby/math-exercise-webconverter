@@ -97,23 +97,30 @@ Saml leddene
 def hello_world_named(name):
     return 'Welcome %s' % name
 
+
+def convert_exercises_from_tex_to_json(filecontent):
+    outfile = StringIO()
+    converted_exercise = filecontent
+    rendered_exercises = converted_exercise
+    exercise_meta_information = get_exercise_meta_information_from_string(converted_exercise.split('\n'))
+    exercises = list(get_exercises(change_part_of_markup(converted_exercise.split('\n'))))
+    rendered_exercises = render_exercises(exercises)
+    write_exercises_to_file(outfile, exercise_meta_information,
+            rendered_exercises)
+    outfile.seek(0)
+    simplified=outfile.read()
+    return simplified
+
+
 @app.route('/submit', methods=['POST', 'GET'])
 def submit():
     print("In submit")
     if request.method == 'POST':
-        outfile = StringIO()
         converted_exercise = request.form['exercise_input']
-        rendered_exercises = converted_exercise
-        exercise_meta_information = get_exercise_meta_information_from_string(converted_exercise.split('\n'))
-        exercises = list(get_exercises(change_part_of_markup(converted_exercise.split('\n'))))
-        rendered_exercises = render_exercises(exercises)
-        write_exercises_to_file(outfile, exercise_meta_information,
-                rendered_exercises)
-        outfile.seek(0)
-        simplified=outfile.read()
+        simplified = convert_exercises_from_tex_to_json(converted_exercise)
         return render_template('index.html',
-                converted_exercise=simplified.replace("\r", "\\n"), 
-                original_input=converted_exercise)
+            converted_exercise=simplified.replace("\r", "\\n"), 
+            original_input=converted_exercise)
     else:
         return render_template('index.html')
         
