@@ -2,7 +2,7 @@
 from exercise_converter.helper.exerciseconverterfunctions import get_exercises, render_exercises, change_part_of_markup, get_exercise_meta_information_from_string, write_exercises_to_file 
 from io import StringIO
 
-from flask import Flask, request, redirect, url_for, render_template
+from flask import Flask, request, redirect, url_for, render_template, jsonify
 
 
 
@@ -125,3 +125,8 @@ def submit():
         return render_template('index.html')
         
 
+@app.route('/_convert_exercises', methods=['GET'])
+def convert_exercises():
+    file_contents = request.args.get('file_contents', '', type=str)
+    json_representation = convert_exercises_from_tex_to_json(file_contents)
+    return jsonify(result=json_representation)
